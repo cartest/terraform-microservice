@@ -1,4 +1,5 @@
-resource "aws_launch_configuration" "service_asg" {
+# Create ASG launch configration
+resource "aws_launch_configuration" "service_asg_lc" {
     count                       = "${var.enable_asg}"
     name_prefix                 = "${var.service_tags["name"]}-${var.service_tags["environment"]}"
     image_id                    = "${var.ami_id}"
@@ -11,12 +12,14 @@ resource "aws_launch_configuration" "service_asg" {
     }
 }
 
-resource "aws_autoscaling_group" "main_asg" {
+
+# Create ASG and assing launch configration to it
+resource "aws_autoscaling_group" "service_asg" {
   count                = "${var.enable_asg}"
   depends_on           = ["aws_launch_configuration.service_asg"]
   name                 = "asg-${var.service_tags["environment"]}-${var.service_tags["name"]}"
   availability_zones   = "${var.subnets_availability_zones}"
-  launch_configuration = "${aws_launch_configuration.service_asg.id}"
+  launch_configuration = "${aws_launch_configuration.service_asg_lc.id}"
   max_size             = "${var.asg_instance_count}"
   min_size             = "${var.asg_instance_count}"
   vpc_zone_identifier  = ["${aws_subnet.private_subnets.*.id}"]
