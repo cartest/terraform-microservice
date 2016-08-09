@@ -4,10 +4,19 @@ Microservice terraform module
 ### Exmaple usage:
 
 
+# Testing module
+    variable "service_tags" {
+      type    = "map"
+      default = {
+          environment = "test-env"
+          name        = "fontend-test"
+        }
+      }
+
+
       module "test_service" {
         source                     = "../terraform-microservice/"
-        environment                = "test-env"
-        service_name               = "frontend"
+        service_tags               = "${var.service_tags}"
         vpc_id                     = "vpc-id-123"
         ami_id                     = "ami-id-123"
         stand_alone_instance_count = 0
