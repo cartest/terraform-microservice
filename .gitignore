@@ -1,3 +1,9 @@
 # Compiled files
 *.tfstate
 *.tfstate.backup
+*.plan
+*.tfplan
+.terraform
+
+.DS_Store
+.*.swp
