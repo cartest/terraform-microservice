@@ -16,7 +16,7 @@ resource "aws_launch_configuration" "service_asg_lc" {
 # Create ASG and assing launch configration to it
 resource "aws_autoscaling_group" "service_asg" {
   count                = "${var.enable_asg}"
-  depends_on           = ["aws_launch_configuration.service_asg"]
+  depends_on           = ["aws_launch_configuration.service_asg_lc"]
   name                 = "asg-${var.service_tags["environment"]}-${var.service_tags["name"]}"
   availability_zones   = "${var.subnets_availability_zones}"
   launch_configuration = "${aws_launch_configuration.service_asg_lc.id}"
