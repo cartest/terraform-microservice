@@ -41,6 +41,13 @@ variable "enable_asg" {
   default = "1"
 }
 
+# Number of instances in autoscaling group
+variable "asg_instance_count" {
+  type    = "string"
+  default = "1"
+}
+
+
 # AMI ID for used for microservice
 variable "ami_id" {
   type    = "string"
@@ -60,11 +67,6 @@ variable "stand_alone_instance_count" {
   default = "0"
 }
 
-# Number of instances in autoscaling group
-variable "asg_instance_count" {
-  type    = "string"
-  default = "1"
-}
 
 # Assign public ip to ASG
 variable "public_ip_toggle" {
