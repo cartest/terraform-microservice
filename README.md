@@ -1,9 +1,9 @@
 # terraform-microservice
 Microservice terraform module
 
-### Example usage:
+## Example usage:
 
-# api microservice
+### api microservice
 
 ```terraform
 module "microservice_api" {
