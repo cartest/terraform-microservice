@@ -1,38 +1,59 @@
-# Create ASG launch configration
-resource "aws_launch_configuration" "service_asg_lc" {
-    count                       = "${var.enable_asg}"
-    name_prefix                 = "${var.service_tags["name"]}-${var.service_tags["environment"]}"
-    image_id                    = "${var.ami_id}"
-    associate_public_ip_address = "${var.public_ip_toggle}"
-    instance_type               = "${var.instance_type}"
-    security_groups             = ["sg1","sg2"]
-    key_name                    = "${var.ssh_key_name}"
-    lifecycle {
-        create_before_destroy = true
-    }
+# Create launch configration
+resource "aws_launch_configuration" "lc" {
+  name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-LC"
+  image_id             = "${var.ami_id}"
+  instance_type        = "${var.instance_type}"
+  security_groups      = ["${aws_security_group.sg.id}"]
+  iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
-
 # Create ASG and assing launch configration to it
-resource "aws_autoscaling_group" "service_asg" {
-  count                = "${var.enable_asg}"
-  depends_on           = ["aws_launch_configuration.service_asg_lc"]
-  name                 = "asg-${var.service_tags["environment"]}-${var.service_tags["name"]}"
-  availability_zones   = "${var.subnets_availability_zones}"
-  launch_configuration = "${aws_launch_configuration.service_asg_lc.id}"
-  max_size             = "${var.asg_instance_count}"
-  min_size             = "${var.asg_instance_count}"
-  vpc_zone_identifier  = ["${aws_subnet.private_subnets.*.id}"]
+resource "aws_autoscaling_group" "asg" {
+  name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-ASG"
+  availability_zones   = "${var.availability_zones}"
+  launch_configuration = "${aws_launch_configuration.lc.id}"
+  max_size             = "${var.asg_size_max}"
+  min_size             = "${var.asg_size_min}"
+  vpc_zone_identifier  = ["${aws_subnet.subnets.*.id}"]
 
   tag = {
     key                 = "Name"
-    value               = "${var.service_tags["name"]}-${var.service_tags["environment"]}-${var.ami_id}"
+    value               = "${var.name}-${var.tags["Environment"]}-${var.ami_id}"
+    propagate_at_launch = true
+  }
+
+  # Legacy tag currently used. To be replaced by "Role" in the future.
+  tag = {
+    key                 = "nodetype"
+    value               = "${var.name}"
     propagate_at_launch = true
   }
 
   tag = {
     key                 = "Environment"
-    value               = "${var.service_tags["environment"]}"
+    value               = "${var.tags["Environment"]}"
+    propagate_at_launch = true
+  }
+
+  tag = {
+    key                 = "Application"
+    value               = "${var.tags["Application"]}"
+    propagate_at_launch = true
+  }
+
+  tag = {
+    key                 = "Tier"
+    value               = "${var.tags["Tier"]}"
+    propagate_at_launch = true
+  }
+
+  tag = {
+    key                 = "Role"
+    value               = "${var.name}"
     propagate_at_launch = true
   }
 }

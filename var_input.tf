@@ -41,10 +41,10 @@ variable "aws_region" {
   description = "The AWS region"
 }
 
-variable "iam_policies" {
+variable "iam_policy_arns" {
   type        = "list"
   default     = []
-  description = "A list of IAM policies to associate with the EC2 role used to create EC2 instance profiles"
+  description = "A list of IAM policy ARNs to associate with the EC2 role used to create EC2 instance profiles"
 }
 
 variable "lc_ami_id" {
@@ -66,7 +66,7 @@ variable "load_balancers" {
 
 variable "name" {
   type        = "string"
-  description = "Microservice name"
+  description = "Microservice name. Synonymous with Role and Nodetype. Used to populate Role and Nodetype tag as well as define resource names and Name tags"
 }
 
 variable "subnets_cidr" {
@@ -87,8 +87,14 @@ variable "subnets_route_table_id" {
 }
 
 variable "tags" {
-  type        = "map"
-  default     = {}
+  type = "map"
+
+  default = {
+    Environment = ""
+    Application = ""
+    Tier        = ""
+  }
+
   description = "Tags to apply to all components within the microservice"
 }
 
