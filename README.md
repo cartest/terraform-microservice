@@ -7,7 +7,7 @@ Microservice terraform module
 
 ```terraform
 module "microservice_api" {
-  source                          = "../terraform-microservice/"
+  source                          = "github.com/Zordrak/terraform-microservice"
   asg_health_check_grace_period   = "300"
   asg_health_check_type           = "EC2"
   asg_size_max                    = "3"
