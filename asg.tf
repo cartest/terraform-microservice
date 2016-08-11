@@ -1,6 +1,6 @@
 # Create launch configration
 resource "aws_launch_configuration" "launch_configuration" {
-  name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-LC"
+  name_prefix          = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-LC/"
   image_id             = "${var.lc_ami_id}"
   instance_type        = "${var.lc_instance_type}"
   security_groups      = ["${aws_security_group.security_group.id}"]
