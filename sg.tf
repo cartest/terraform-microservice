@@ -13,17 +13,19 @@ resource "aws_security_group" "security_group" {
 }
 
 resource "aws_security_group_rule" "self_ingress" {
-  type      = "ingress"
-  protocol  = "-1"
-  from_port = 0
-  to_port   = 0
-  self      = true
+  type              = "ingress"
+  protocol          = "-1"
+  from_port         = 0
+  to_port           = 0
+  self              = true
+  security_group_id = "${aws_security_group.security_group.id}"
 }
 
 resource "aws_security_group_rule" "self_egress" {
-  type      = "egress"
-  protocol  = "-1"
-  from_port = 0
-  to_port   = 0
-  self      = true
+  type              = "egress"
+  protocol          = "-1"
+  from_port         = 0
+  to_port           = 0
+  self              = true
+  security_group_id = "${aws_security_group.security_group.id}"
 }
