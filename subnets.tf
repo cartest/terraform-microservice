@@ -23,5 +23,5 @@ resource "aws_subnet" "subnets" {
 resource "aws_route_table_association" "route_table_associations" {
   count          = "${length(var.subnets_cidr)}"
   subnet_id      = "${element(aws_subnet.subnets.*.id, count.index)}"
-  route_table_id = "${var.subnets_route_table_id}"
+  route_table_id = "${element(var.subnets_route_tables[count.index]}"
 }
