@@ -14,7 +14,6 @@ resource "aws_launch_configuration" "launch_configuration" {
 # Create ASG and assing launch configration to it
 resource "aws_autoscaling_group" "autoscaling_group" {
   name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-ASG"
-  availability_zones   = ["${data.aws_availability_zones.service_azs.names}"]
   launch_configuration = "${aws_launch_configuration.launch_configuration.id}"
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
