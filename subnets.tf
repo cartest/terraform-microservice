@@ -1,6 +1,6 @@
 module "subnets" {
-  source                  = "github.com/Zordrak/terraform-subnet-tuple.git"
-  route_tables            = "${var.route_tables}"
+  source                  = "../terraform-subnet-tuple"
+  route_tables            = "${var.subnets_route_tables}"
   availability_zones      = "${var.availability_zones}"
   tags                    = "${var.tags}"
   map_public_ip_on_launch = "${var.subnets_map_public_ip_on_launch}"
