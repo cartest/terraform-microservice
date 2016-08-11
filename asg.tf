@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   launch_configuration = "${aws_launch_configuration.launch_configuration.id}"
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
-  vpc_zone_identifier  = ["${aws_subnet.subnets.*.id}"]
+  vpc_zone_identifier  = "${module.subnets.subnet_ids}"
 
   tag = {
     key                 = "Name"

@@ -39,5 +39,5 @@ output "iam_role_unique_id" {
 }
 
 output "subnet_ids" {
-  value = ["${aws_subnet.subnets.*.id}"]
+  value = "${module.subnets.subnet_ids}"
 } 
