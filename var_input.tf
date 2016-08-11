@@ -1,6 +1,3 @@
-### Dynamic data
-data "aws_availability_zones" "service_azs" {}
-
 ### Module inputs ###
 variable "asg_health_check_grace_period" {
   type        = "string"
