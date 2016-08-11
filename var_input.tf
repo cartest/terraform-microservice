@@ -79,9 +79,10 @@ variable "subnets_map_public_ip_on_launch" {
   description = "Specify true to indicate that instances should be assigned a public IP address"
 }
 
-variable "subnets_route_table_id" {
-  type        = "string"
-  description = "Route table ID to associate with the subnets"
+variable "subnets_route_tables" {
+  type        = "list"
+  description = "List of Route table IDs to associate with the subnets"
+  default     = []
 }
 
 variable "tags" {
