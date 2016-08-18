@@ -53,7 +53,6 @@ variable "iam_policy_arns" {
 
 variable "lc_ami_id" {
   type        = "string"
-  default     = ""
   description = "The AMI ID to use in the ASG Launch Configuration"
 }
 
