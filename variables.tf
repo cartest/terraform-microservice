@@ -90,6 +90,15 @@ variable "subnets_route_tables" {
   default     = []
 }
 
+# Worth considering going back to indiviual variables here.
+# All the modules above are populating these from var.project and var.environment,
+# and tier is set per microservice invocation
+#
+# Doing it this way you cannot mandate that Environment, Application and Tier are set
+# but we should never create a microservice that doesn't have all three set.
+#
+# If we *do* go back to individual variables, we just need to change the references
+# to this map to individual variables in the code
 variable "tags" {
   type = "map"
 
