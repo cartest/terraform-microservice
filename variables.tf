@@ -61,6 +61,11 @@ variable "lc_instance_type" {
   description = "The microservice EC2 instance type"
 }
 
+variable "lc_key_name" {
+  type        = "string"
+  description = "The key name that should be used for the instance"
+}
+
 variable "load_balancers" {
   type        = "list"
   default     = []
