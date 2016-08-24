@@ -34,6 +34,12 @@ variable "asg_termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated"
 }
 
+variable "asg_load_balancers" {
+  type        = "list"
+  default     = []
+  description = "A list of load balancer names to add to the autoscaling group names"
+}
+
 variable "availability_zones" {
   type        = "list"
   default     = []
