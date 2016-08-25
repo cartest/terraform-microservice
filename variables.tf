@@ -69,6 +69,7 @@ variable "lc_instance_type" {
 
 variable "lc_key_name" {
   type        = "string"
+  default     = ""
   description = "The key name that should be used for the instance"
 }
 
