@@ -90,6 +90,11 @@ variable "subnets_route_tables" {
   default     = []
 }
 
+variable "user_data_template" {
+  type	      = "string"
+  description = "provide user data to be launched on ASG instances"
+  default     = "dummy.sh"
+}
 # Worth considering going back to indiviual variables here.
 # All the modules above are populating these from var.project and var.environment,
 # and tier is set per microservice invocation
