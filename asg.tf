@@ -7,7 +7,8 @@ resource "aws_launch_configuration" "launch_configuration" {
   iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
   lifecycle {
     create_before_destroy = true
-  }
+  }  
+  user_data            = "${var.user_data}"
 }
 
 # Create ASG and assing launch configration to it

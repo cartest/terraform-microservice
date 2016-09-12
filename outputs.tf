@@ -38,6 +38,10 @@ output "iam_role_unique_id" {
   value = "${aws_iam_role.iam_role.unique_id}"
 }
 
+output "iam_role_name" {
+  value = "${aws_iam_role.iam_role.name}"
+}
+
 output "subnet_ids" {
   value = "${module.subnets.subnet_ids}"
 }

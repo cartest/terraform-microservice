@@ -115,3 +115,10 @@ variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
 }
+
+variable "user_data" {
+  type	      = "string"
+  description = "userdate"
+  default = "<<EOF
+  EOF"
+}
