@@ -5,6 +5,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   instance_type        = "${var.lc_instance_type}"
   security_groups      = ["${aws_security_group.security_group.id}", "${var.additional_security_group_ids}"]
   iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
+  key_name	       = "${var.lc_key_name}"
   lifecycle {
     create_before_destroy = true
   }  
@@ -17,7 +18,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   launch_configuration = "${aws_launch_configuration.launch_configuration.id}"
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
-  vpc_zone_identifier  = ["${module.subnets.subnet_ids}"]
+  vpc_zone_identifier  = ["${module.subnets.subnet_ids}","${var.natsubnet_ids}"]
 
   tag = {
     key                 = "Name"

@@ -4,10 +4,21 @@ variable "additional_security_group_ids"  {
   description = "Additional security groups to assign to ASG instances on top of the unique one created by this module"
 }
 
+variable "natsubnet_ids" {
+  type        = "list"
+  default     = []
+}
+  
 variable "asg_health_check_grace_period" {
   type        = "string"
   default     = "300"
   description = "Time (in seconds) after instance comes into service before checking health"
+}
+
+variable "lc_key_name" {
+  type	      = "string"
+  default     = ""
+  description = "ssh key to use with insstance"
 }
 
 variable "asg_health_check_type" {
