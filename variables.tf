@@ -127,9 +127,20 @@ variable "vpc_id" {
   description = "Parent VPC ID"
 }
 
-variable "user_data" {
-  type	      = "string"
-  description = "userdate"
-  default = "<<EOF
-  EOF"
+variable "userdata" {
+  type = "string"
+  description = "describe your variable"
+  default = ""
+}
+
+data "template_file" "userdata" {
+  # type        = "string"
+  # description = "userdate"
+  # template     = "<<EOF
+  template = "${file("${path.module}/templates/userdata.tmpl")}"
+  # ${userdata}
+  # EOF"
+  vars{
+    data  = "${var.userdata}"
+  }
 }

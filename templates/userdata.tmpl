@@ -1,0 +1,18 @@
+#!/bin/bash
+/usr/local/bin/aws configure set profile.default.region eu-west-1
+/usr/local/bin/aws configure set profile.default.output json
+/usr/local/bin/aws configure set profile.ebs.role_arn $(wget -q -O - 169.254.169.254/latest/meta-data/iam/info | grep "InstanceProfileArn" | awk -F\"  '$2 == "InstanceProfileArn" {print $4}')
+/usr/local/bin/aws configure set profile.ebs.source_profile default
+instance_id=$(wget -q -O - 169.254.169.254/latest/meta-data/instance-id)
+echo ${instance_id}
+instance_role=$(/usr/local/bin/aws ec2 describe-instances --instance-ids ${instance_id} --query 'Reservations[*].Instances[].Tags[?Key==`Role`].Value[]' --output text)
+echo "${instance_role}"
+volumes_ids=$(/usr/local/bin/aws ec2 describe-volumes --filter Name=tag:Name,Values="${instance_role}" --query 'Volumes[].[VolumeId]' --output text)
+for volumes in ${volumes_ids} ; do
+mountpoint=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids ${volumes} --query 'Volumes[].Tags[?Key==`MountPoint`].Value[]' --output text);
+dev=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids ${volumes} --query 'Volumes[].Tags[?Key==`Dev`].Value[]' --output text);
+rhelmp=$(echo ${dev} | sed 's/sd/xvd/g')
+/usr/local/bin/aws ec2 attach-volume --volume-id=${volumes} --instance-id=${instance_id} --device=${dev}
+mount /dev/${rhelmp} ${mountpoint} -t ext4
+echo "/${mountpoint}            /dev/${rhelmp}                  ext4    defaults        0       0">>/etc/fstab
+done

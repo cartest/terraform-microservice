@@ -9,7 +9,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   lifecycle {
     create_before_destroy = true
   }  
-  user_data            = "${var.user_data}"
+  user_data            = "${data.template_file.userdata.rendered}"
 }
 
 # Create ASG and assing launch configration to it
