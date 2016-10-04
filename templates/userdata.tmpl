@@ -4,15 +4,35 @@
 /usr/local/bin/aws configure set profile.ebs.role_arn $(wget -q -O - 169.254.169.254/latest/meta-data/iam/info | grep "InstanceProfileArn" | awk -F\"  '$2 == "InstanceProfileArn" {print $4}')
 /usr/local/bin/aws configure set profile.ebs.source_profile default
 instance_id=$(wget -q -O - 169.254.169.254/latest/meta-data/instance-id)
-echo ${instance_id}
 instance_role=$(/usr/local/bin/aws ec2 describe-instances --instance-ids ${instance_id} --query 'Reservations[*].Instances[].Tags[?Key==`Role`].Value[]' --output text)
-echo "${instance_role}"
 volumes_ids=$(/usr/local/bin/aws ec2 describe-volumes --filter Name=tag:Name,Values="${instance_role}" --query 'Volumes[].[VolumeId]' --output text)
 for volumes in ${volumes_ids} ; do
 mountpoint=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids ${volumes} --query 'Volumes[].Tags[?Key==`MountPoint`].Value[]' --output text);
 dev=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids ${volumes} --query 'Volumes[].Tags[?Key==`Dev`].Value[]' --output text);
 rhelmp=$(echo ${dev} | sed 's/sd/xvd/g')
-/usr/local/bin/aws ec2 attach-volume --volume-id=${volumes} --instance-id=${instance_id} --device=${dev}
-mount /dev/${rhelmp} ${mountpoint} -t ext4
-echo "/${mountpoint}            /dev/${rhelmp}                  ext4    defaults        0       0">>/etc/fstab
+/usr/local/bin/aws ec2 attach-volume --volume-id=${volumes} --instance-id=${instance_id} --device=${dev} >>/dev/null
+devfs=$(lsblk -rio "NAME,FSTYPE" | awk -F" " '$1 == "'"${rhelmp}"'" {print $2}')
+if [ -z ${devfs} ]
+  then
+    echo "partition doesn't have any filesystem, mkfs.ext4 will now run to create ext4 filesystem. Afterwards mounting partition to ${mountpoint}"
+    mkfs.ext4 /dev/${rhelmp} >>/dev/null
+    mount /dev/${rhelmp} ${mountpoint} -t ext4 >>/dev/null
+  else
+    if [ -z "$(df | grep ${mountpoint})" ]
+      then
+        echo "partition contain ${devfs} filesystem, mounting to ${mountpoint}"
+        mount /dev/${rhelmp} ${mountpoint} -t ${devfs} >>/dev/null
+      else
+        echo "partition already mounted to ${mountpoint}, nothing todo"
+    fi
+fi
+fstab=$(grep "${mountpoint}" /etc/fstab)
+fstabfs=$(lsblk -rio "NAME,FSTYPE" | awk -F" " '$1 == "'"${rhelmp}"'" {print $2}')
+if [ -z "${fstab}" ]
+  then
+    echo "fstab entry for ${mountpoint} doesn't exists, adding fstab entry now"
+    echo "${mountpoint}         /dev/${rhelmp}                  ${fstabfs}    defaults        0       0" >>/etc/fstab
+  else
+    echo "fstab entry for ${mountpoint} already exists, exiting"
+fi
 done
