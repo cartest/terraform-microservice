@@ -10,7 +10,8 @@ for volumes in $${volumes_ids} ; do
 mountpoint=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids $${volumes} --query 'Volumes[].Tags[?Key==`MountPoint`].Value[]' --output text);
 dev=$(/usr/local/bin/aws ec2 describe-volumes --volume-ids $${volumes} --query 'Volumes[].Tags[?Key==`Dev`].Value[]' --output text);
 rhelmp=$$(echo $${dev} | sed 's/sd/xvd/g')
-/usr/local/bin/aws ec2 attach-volume --volume-id=$${volumes} --instance-id=$${instance_id} --device=/dev/$${dev}
+/usr/local/bin/aws ec2 attach-volume --volume-id=$${volumes} --instance-id=$${instance_id} --device=/dev/$${rhelmp}
+until grep -oh "$${rhelmp}" /proc/partitions>>/dev/null ; do sleep 1;done
 devfs=$$(lsblk -rio "NAME,FSTYPE" | awk -F" " '$1 == "'"$${rhelmp}"'" {print $2}')
 if [ -z $${devfs} ]
   then
