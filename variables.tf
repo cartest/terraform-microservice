@@ -4,11 +4,6 @@ variable "additional_security_group_ids"  {
   description = "Additional security groups to assign to ASG instances on top of the unique one created by this module"
 }
 
-variable "natsubnet_ids" {
-  type        = "list"
-  default     = []
-}
-  
 variable "asg_health_check_grace_period" {
   type        = "string"
   default     = "300"
