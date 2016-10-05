@@ -133,14 +133,7 @@ variable "userdata" {
   default = ""
 }
 
-data "template_file" "userdata" {
-  # type        = "string"
-  # description = "userdate"
-  # template     = "<<EOF
-  template = "${file("${path.module}/templates/userdata.tmpl")}"
-  # ${userdata}
-  # EOF"
-  vars{
-    data  = "${var.userdata}"
-  }
+data "template_file" "user_data" {
+  template = "${file("${path.module}/templates/${var.user_data}")}"
 }
+
