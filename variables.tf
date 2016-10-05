@@ -134,9 +134,9 @@ variable "user_data" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("${path.module}/templates/${user_data}")}"
+  template = "${file("${templatename}")}"
   vars {
-    user_data=${var.user_data}
+    templatename="${path.module}/templates/${var.user_data}.tmpl"
   }
 }
 
