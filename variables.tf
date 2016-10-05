@@ -127,9 +127,9 @@ variable "vpc_id" {
   description = "Parent VPC ID"
 }
 
-variable "userdata" {
+variable "user_data" {
   type = "string"
-  description = "describe your variable"
+  description = "Template name to be used with user_data option, specify only plain name without .tmpl extension"
   default = ""
 }
 
