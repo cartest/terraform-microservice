@@ -10,12 +10,6 @@ variable "asg_health_check_grace_period" {
   description = "Time (in seconds) after instance comes into service before checking health"
 }
 
-variable "lc_key_name" {
-  type	      = "string"
-  default     = ""
-  description = "ssh key to use with insstance"
-}
-
 variable "asg_health_check_type" {
   type        = "string"
   default     = "EC2"
@@ -65,6 +59,12 @@ variable "lc_ami_id" {
 variable "lc_instance_type" {
   type        = "string"
   description = "The microservice EC2 instance type"
+}
+
+variable "lc_key_name" {
+  type        = "string"
+  default     = ""
+  description = "ssh key to use with insstance"
 }
 
 variable "load_balancers" {
