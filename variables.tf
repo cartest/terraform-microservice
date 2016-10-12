@@ -1,3 +1,9 @@
+variable "user_data_scritp_path" {
+  type = "string"
+  description = "Path to user data script which will be executed drunig instance boot"
+  default = ""
+}
+
 variable "additional_security_group_ids"  {
   type        = "list"
   default     = []
