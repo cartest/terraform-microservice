@@ -1,6 +1,6 @@
-variable "user_data_scritp_path" {
+variable "user_data_script_path" {
   type = "string"
-  description = "Path to user data script which will be executed drunig instance boot"
+  description = "Path to user data script which will be executed during instance boot"
   default = ""
 }
 
