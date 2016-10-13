@@ -61,6 +61,12 @@ variable "lc_instance_type" {
   description = "The microservice EC2 instance type"
 }
 
+variable "lc_key_name" {
+  type        = "string"
+  default     = ""
+  description = "ssh key to use with insstance"
+}
+
 variable "load_balancers" {
   type        = "list"
   default     = []
@@ -115,3 +121,17 @@ variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
 }
+
+variable "user_data" {
+  type = "string"
+  description = "Template name to be used with user_data option, specify only plain name without .tmpl extension"
+  default = ""
+}
+
+data "template_file" "user_data" {
+  template = "${file("${templatename}")}"
+  vars {
+    templatename="${path.module}/templates/${var.user_data}.tmpl"
+  }
+}
+

@@ -5,10 +5,11 @@ resource "aws_launch_configuration" "launch_configuration" {
   instance_type        = "${var.lc_instance_type}"
   security_groups      = ["${concat(split(",", aws_security_group.security_group.id), var.additional_security_group_ids)}"]
   iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
-
+  key_name	       = "${var.lc_key_name}"
   lifecycle {
     create_before_destroy = true
-  }
+  }  
+  user_data            = "${data.template_file.user_data.rendered}"
 }
 
 # Create ASG and assing launch configration to it
