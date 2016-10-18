@@ -93,7 +93,7 @@ variable "subnets_route_tables" {
 variable "user_data_template" {
   type	      = "string"
   description = "provide user data to be launched on ASG instances"
-  default     = "dummy.sh"
+  default     = "./dummy.sh"
 }
 # Worth considering going back to indiviual variables here.
 # All the modules above are populating these from var.project and var.environment,
