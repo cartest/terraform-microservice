@@ -18,7 +18,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
   vpc_zone_identifier  = ["${module.subnets.subnet_ids}"]
-  load_balancers       = "${var.elb_names}"
+  load_balancers       = ["${var.elb_names}"]
 
   tag = {
     key                 = "Name"
