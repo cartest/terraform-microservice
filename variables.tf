@@ -1,3 +1,9 @@
+variable "user_data_script_path" {
+  type        = "string"
+  description = "User data script executed at instance boot"
+  default     = ""
+}
+
 variable "additional_security_group_ids"  {
   type        = "list"
   default     = []

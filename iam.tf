@@ -17,3 +17,34 @@ resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
   role       = "${aws_iam_role.iam_role.name}"
   policy_arn = "${var.iam_policy_arns[count.index]}"
 }
+
+resource "aws_iam_role_policy" "instances_descriptions" {
+    name = "instances_descriptions_policy"
+    role = "${aws_iam_role.iam_role.id}"
+    policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1476829996485",
+            "Action": [
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeInstances"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Stmt1476828750767",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeAutoScalingInstances"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
