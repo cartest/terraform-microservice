@@ -1,5 +1,5 @@
 module "subnets" {
-  source                  = "github.com/cartest/terraform-subnet-tuple.git?ref=story/22-greenblue"
+  source                  = "git@github.com:cartest/erraform-subnet-tuple.git?ref=story/22-greenblue"
   availability_zones      = "${var.availability_zones}"
   aws_region              = "${var.aws_region}"
   cidrs                   = "${var.subnets_cidr}"
