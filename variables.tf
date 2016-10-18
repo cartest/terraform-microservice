@@ -115,3 +115,9 @@ variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
 }
+
+variable "elb_names" {
+  type = "list"
+  default = []
+  description = "List of ELB-s to associate with ASG."
+}
