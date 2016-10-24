@@ -13,12 +13,12 @@ data "template_file" "assume_role_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
-  count      = "${length(var.iam_policy_arns)}"
+  count      = "1"
   role       = "${aws_iam_role.iam_role.name}"
   policy_arn = "${var.iam_policy_arns[count.index]}"
 }
 
-resource "aws_iam_role_policy" "instances_descriptions" {
+/*resource "aws_iam_role_policy" "instances_descriptions" {
     name = "instances_descriptions_policy"
     role = "${aws_iam_role.iam_role.id}"
     policy = <<EOF
@@ -47,4 +47,4 @@ resource "aws_iam_role_policy" "instances_descriptions" {
     ]
 }
 EOF
-}
+}*/

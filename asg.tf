@@ -7,7 +7,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
   # TODO:
   # TEST IF user_data_script_path is empty !
-  user_data            = "${file("${path.module}/${var.user_data_script_path}")}"
+  user_data            = "${var.user_data_script}"
   lifecycle {
     create_before_destroy = true
   }
