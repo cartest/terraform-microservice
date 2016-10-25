@@ -1,10 +1,10 @@
 resource "aws_iam_instance_profile" "iam_instance_profile" {
-  name  = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-colour}-IAMIP"
+  name  = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-color}-IAMIP"
   roles = ["${aws_iam_role.iam_role.name}"]
 }
 
 resource "aws_iam_role" "iam_role" {
-  name               = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-colour}-IAMROLE"
+  name               = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-color}-IAMROLE"
   assume_role_policy = "${data.template_file.assume_role_policy.rendered}"
 }
 
