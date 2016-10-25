@@ -8,6 +8,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   # TODO:
   # TEST IF user_data_script_path is empty !
   user_data            = "${var.user_data_script}"
+  key_name             = "${var.lc_key_name}"
   lifecycle {
     create_before_destroy = true
   }
@@ -20,7 +21,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
   vpc_zone_identifier  = ["${module.subnets.subnet_ids}"]
-
+  load_balancers       = ["${var.asg_load_balancers}"]
   tag = {
     key                 = "Name"
     value               = "${var.name}-${var.tags["Environment"]}-${var.lc_ami_id}"

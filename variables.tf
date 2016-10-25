@@ -43,6 +43,12 @@ variable "asg_termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated"
 }
 
+variable "asg_load_balancers" {
+  type        = "list"
+  default     = []
+  description = "A list of load balancer names to add to the autoscaling group names"
+}
+
 variable "availability_zones" {
   type        = "list"
   default     = []
@@ -68,6 +74,12 @@ variable "lc_ami_id" {
 variable "lc_instance_type" {
   type        = "string"
   description = "The microservice EC2 instance type"
+}
+
+variable "lc_key_name" {
+  type        = "string"
+  default     = ""
+  description = "The key name that should be used for the instance"
 }
 
 variable "load_balancers" {
@@ -123,4 +135,28 @@ variable "tags" {
 variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
+}
+
+variable "sg_cb_ingress_rule" {
+  type        = "list"
+  default     = []
+  description = "Inbound rules to be passed to environmental security group, use with cidr_blocks only"
+}
+
+variable "sg_ssg_ingress_rule" {
+  type        = "list"
+  default     = []
+  description = "Inbound rules to be passed to environmental security group, use with source_security_group_id only"
+}
+
+variable "sg_pl_cb_egress_rule" {
+  type        = "list"
+  default     = []
+  description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/cidr_blocks only"
+}
+
+variable "sg_pl_ssg_egress_rule" {
+  type        = "list"
+  default     = []
+  description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/source_security_group_id only"
 }
