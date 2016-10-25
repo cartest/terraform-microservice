@@ -12,8 +12,8 @@ data "template_file" "assume_role_policy" {
   template = "${file("${path.module}/templates/assume_role_policy.json.tmpl")}"
 }
 
-resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
-  count      = "${length(var.iam_policy_arns)}"
+/*resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
+  count      = "1"
   role       = "${aws_iam_role.iam_role.name}"
   policy_arn = "${var.iam_policy_arns[count.index]}"
-}
+}*/
