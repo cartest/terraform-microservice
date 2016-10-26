@@ -1,6 +1,6 @@
-variable "app-stack-color" {
+variable "app-stack-identifier" {
   type        = "string"
-  description = "Variable that determines what side of stack the resource is attached to. Possible values blue and green"
+  description = "Additional resource identifier (e.g blue/green or red/black etc)"
 }
 
 variable "additional_security_group_ids"  {
