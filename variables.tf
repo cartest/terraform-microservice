@@ -48,6 +48,7 @@ variable "availability_zones" {
 variable "aws_region" {
   type        = "string"
   description = "The AWS region"
+  default     = ""
 }
 
 variable "iam_policy_arns" {
