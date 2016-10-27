@@ -1,8 +1,3 @@
-variable "app-stack-identifier" {
-  type        = "string"
-  description = "Additional resource identifier (e.g blue/green or red/black etc)"
-}
-
 variable "additional_security_group_ids"  {
   type        = "list"
   default     = []
