@@ -1,4 +1,5 @@
 resource "aws_security_group" "security_group" {
+<<<<<<< HEAD
   name        = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-SG"
   description = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-SG"
   vpc_id      = "${var.vpc_id}"
