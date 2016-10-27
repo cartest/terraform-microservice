@@ -1,4 +1,4 @@
-variable "app-stack-identifier" {
+variable "app_stack_identifier" {
   type        = "string"
   description = "Additional resource identifier (e.g blue/green or red/black etc)"
 }

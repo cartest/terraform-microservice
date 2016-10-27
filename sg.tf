@@ -1,10 +1,10 @@
 resource "aws_security_group" "security_group" {
-  name        = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-identifier}-SG"
-  description = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-identifier}-SG"
+  name        = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app_stack_identifier}-SG"
+  description = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app_stack_identifier}-SG"
   vpc_id      = "${var.vpc_id}"
 
   tags {
-    Name        = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-identifier}-SG"
+    Name        = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app_stack_identifier}-SG"
     Environment = "${var.tags["Environment"]}"
     Application = "${var.tags["Application"]}"
     Tier        = "${var.tags["Tier"]}"

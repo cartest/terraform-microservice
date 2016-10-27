@@ -1,6 +1,6 @@
 # Create launch configration
 resource "aws_launch_configuration" "launch_configuration" {
-  name_prefix          = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-identifier}-LC/"
+  name_prefix          = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app_stack_identifier}-LC/"
   image_id             = "${var.lc_ami_id}"
   instance_type        = "${var.lc_instance_type}"
   security_groups      = ["${concat(split(",", aws_security_group.security_group.id), var.additional_security_group_ids)}"]
@@ -13,7 +13,7 @@ resource "aws_launch_configuration" "launch_configuration" {
 
 # Create ASG and assing launch configration to it
 resource "aws_autoscaling_group" "autoscaling_group" {
-  name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app-stack-identifier}-ASG"
+  name                 = "${var.tags["Environment"]}-${var.tags["Application"]}-${var.tags["Tier"]}-${var.name}-${var.app_stack_identifier}-ASG"
   launch_configuration = "${aws_launch_configuration.launch_configuration.id}"
   max_size             = "${var.asg_size_max}"
   min_size             = "${var.asg_size_min}"
