@@ -116,3 +116,9 @@ variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
 }
+
+variable "user_data_script" {
+  type        = "string"
+  description = "User data script executed at instance boot"
+  default     = ""
+}
