@@ -9,9 +9,9 @@ resource "aws_launch_configuration" "launch_configuration" {
   user_data            = "${var.user_data_script}"
   #key_name             = "${var.lc_key_name}"
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  #lifecycle {
+  #   create_before_destroy = true
+  #}
 }
 
 # Create ASG and assing launch configration to it
