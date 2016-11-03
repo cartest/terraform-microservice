@@ -6,7 +6,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   security_groups      = ["${concat(split(",", aws_security_group.security_group.id), var.additional_security_group_ids)}"]
   iam_instance_profile = "${aws_iam_instance_profile.iam_instance_profile.id}"
 
-  user_data            = "${var.user_data_script}"
+  #user_data            = "${var.user_data_script}"
   #key_name             = "${var.lc_key_name}"
 
   #lifecycle {
