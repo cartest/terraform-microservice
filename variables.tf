@@ -1,7 +1,3 @@
-variable "app-stack-color" {
-  type        = "string"
-  description = "Variable that determines what side of stack the resource is attached to. Possible values blue and green"
-}
 variable "user_data_script" {
   type        = "string"
   description = "User data script executed at instance boot"
