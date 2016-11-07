@@ -7,6 +7,7 @@ variable "user_data_script" {
   description = "User data script executed at instance boot"
   default     = ""
 }
+
 variable "additional_security_group_ids"  {
   type        = "list"
   default     = []
@@ -58,6 +59,7 @@ variable "availability_zones" {
 variable "aws_region" {
   type        = "string"
   description = "The AWS region"
+  default     = ""
 }
 
 variable "iam_policy_arns" {
@@ -135,12 +137,6 @@ variable "tags" {
 variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
-}
-
-variable "elb_names" {
-  type = "list"
-  default = []
-  description = "List of ELB-s to associate with ASG."
 }
 
 variable "sg_cb_ingress_rule" {
