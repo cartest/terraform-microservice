@@ -40,12 +40,6 @@ variable "asg_termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated"
 }
 
-variable "asg_load_balancers" {
-  type        = "list"
-  default     = []
-  description = "A list of load balancer names to add to the autoscaling group names"
-}
-
 variable "availability_zones" {
   type        = "list"
   default     = []
@@ -78,12 +72,6 @@ variable "lc_key_name" {
   type        = "string"
   default     = ""
   description = "The key name that should be used for the instance"
-}
-
-variable "load_balancers" {
-  type        = "list"
-  default     = []
-  description = "A list of load balancers to associate to the ASG"
 }
 
 variable "name" {
@@ -157,4 +145,10 @@ variable "sg_pl_ssg_egress_rule" {
   type        = "list"
   default     = []
   description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/source_security_group_id only"
+}
+
+variable "load_balancer_ids" {
+  type = "list"
+  default = []
+  desciption = "List of load balancer ids that the microservice should be attached to"
 }
