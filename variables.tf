@@ -148,7 +148,7 @@ variable "sg_pl_ssg_egress_rule" {
 }
 
 variable "load_balancer_ids" {
-  type = "list"
-  default = []
+  type = "string"
+  default = ""
   desciption = "List of load balancer ids that the microservice should be attached to"
 }
