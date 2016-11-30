@@ -147,8 +147,3 @@ variable "sg_pl_ssg_egress_rule" {
   description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/source_security_group_id only"
 }
 
-variable "load_balancer_ids" {
-  type = "string"
-  default = ""
-  desciption = "List of load balancer ids that the microservice should be attached to"
-}
