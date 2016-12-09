@@ -14,6 +14,10 @@ output "autoscaling_group_id" {
   value = "${aws_autoscaling_group.autoscaling_group.id}"
 }
 
+output "autoscaling_group_name" {
+  value = "${aws_autoscaling_group.autoscaling_group.name}"
+}
+
 output "iam_instance_profile_id" {
   value = "${aws_iam_instance_profile.iam_instance_profile.id}"
 }
