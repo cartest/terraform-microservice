@@ -134,27 +134,3 @@ variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
 }
-
-variable "sg_cb_ingress_rule" {
-  type        = "list"
-  default     = []
-  description = "Inbound rules to be passed to environmental security group, use with cidr_blocks only"
-}
-
-variable "sg_ssg_ingress_rule" {
-  type        = "list"
-  default     = []
-  description = "Inbound rules to be passed to environmental security group, use with source_security_group_id only"
-}
-
-variable "sg_pl_cb_egress_rule" {
-  type        = "list"
-  default     = []
-  description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/cidr_blocks only"
-}
-
-variable "sg_pl_ssg_egress_rule" {
-  type        = "list"
-  default     = []
-  description = "Outbound rules to be passed to environmental security group, use with prefix_list_ids/source_security_group_id only"
-}
