@@ -14,6 +14,10 @@ output "autoscaling_group_id" {
   value = "${aws_autoscaling_group.autoscaling_group.id}"
 }
 
+output "autoscaling_group_name" {
+  value = "${aws_autoscaling_group.autoscaling_group.name}"
+}
+
 output "iam_instance_profile_id" {
   value = "${aws_iam_instance_profile.iam_instance_profile.id}"
 }
@@ -36,6 +40,10 @@ output "iam_role_arn" {
 
 output "iam_role_unique_id" {
   value = "${aws_iam_role.iam_role.unique_id}"
+}
+
+output "iam_role_name" {
+  value = "${aws_iam_role.iam_role.name}"
 }
 
 output "subnet_ids" {

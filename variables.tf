@@ -1,3 +1,9 @@
+variable "user_data_script" {
+  type        = "string"
+  description = "User data script executed at instance boot"
+  default     = ""
+}
+
 variable "additional_security_group_ids"  {
   type        = "list"
   default     = []
@@ -34,6 +40,12 @@ variable "asg_termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated"
 }
 
+variable "asg_load_balancers" {
+  type        = "list"
+  default     = []
+  description = "A list of load balancer names to add to the autoscaling group names"
+}
+
 variable "availability_zones" {
   type        = "list"
   default     = []
@@ -43,6 +55,7 @@ variable "availability_zones" {
 variable "aws_region" {
   type        = "string"
   description = "The AWS region"
+  default     = "eu-west-1"
 }
 
 variable "iam_policy_arns" {
@@ -59,6 +72,12 @@ variable "lc_ami_id" {
 variable "lc_instance_type" {
   type        = "string"
   description = "The microservice EC2 instance type"
+}
+
+variable "lc_key_name" {
+  type        = "string"
+  default     = ""
+  description = "The key name that should be used for the instance"
 }
 
 variable "load_balancers" {
