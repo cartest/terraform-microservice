@@ -31,7 +31,13 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   # Legacy tag currently used. To be replaced by "Role" in the future.
   tag = {
     key                 = "nodetype"
-    value               = "${var.name}"
+    value               = "${var.nodetype}"
+    propagate_at_launch = true
+  }
+
+  tag = {
+    key                 = "Role"
+    value               = "${var.nodetype}"
     propagate_at_launch = true
   }
 

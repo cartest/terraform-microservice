@@ -88,7 +88,12 @@ variable "load_balancers" {
 
 variable "name" {
   type        = "string"
-  description = "Microservice name. Synonymous with Role and Nodetype. Used to populate Role and Nodetype tag as well as define resource names and Name tags"
+  description = "Microservice name. Used to define resource names and Name tags"
+}
+
+variable "nodetype" {
+  type        = "string"
+  description = "Microservice nodetype. Synonymous with Role. Used to populate Role and Nodetype tag."
 }
 
 variable "subnets_cidr" {
