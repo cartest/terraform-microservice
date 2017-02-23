@@ -4,7 +4,7 @@ variable "user_data_script" {
   default     = ""
 }
 
-variable "additional_security_group_ids"  {
+variable "additional_security_group_ids" {
   type        = "list"
   default     = []
   description = "Additional security groups to assign to ASG instances on top of the unique one created by this module"
@@ -138,4 +138,16 @@ variable "tags" {
 variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
+}
+
+variable "autoscale_startup_cron" {
+  type        = "string"
+  description = "Cron schedule to apply apply to autoscale group. Leave blank for no schedule"
+  default     = ""
+}
+
+variable "autoscale_shutdown_cron" {
+  type        = "string"
+  description = "Cron schedule to apply apply to autoscale group. Leave blank for no schedule"
+  default     = ""
 }

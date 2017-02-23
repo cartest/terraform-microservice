@@ -8,7 +8,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   user_data            = "${var.user_data_script}"
 
   lifecycle {
-       create_before_destroy = true
+    create_before_destroy = true
   }
 }
 
@@ -20,7 +20,6 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   min_size             = "${var.asg_size_min}"
   vpc_zone_identifier  = ["${module.subnets.subnet_ids}"]
   load_balancers       = ["${var.load_balancers}"]
-
 
   tag = {
     key                 = "Name"
@@ -58,4 +57,24 @@ resource "aws_autoscaling_group" "autoscaling_group" {
     value               = "${var.tags["Tier"]}"
     propagate_at_launch = true
   }
+}
+
+resource "aws_autoscaling_schedule" "asg_shutdown" {
+  # Only create this schedule if there's a cron set for it
+  count                  = "${var.autoscale_shutdown_cron == "" ? 0 : 1}"
+  scheduled_action_name  = "${aws_autoscaling_group.autoscaling_group.name}-shutdown"
+  min_size               = 0
+  max_size               = 0
+  desired_capacity       = 0
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
+}
+
+resource "aws_autoscaling_schedule" "asg_startup" {
+  # Only create this schedule if there's a cron set for it
+  count                  = "${var.autoscale_startup_cron == "" ? 0 : 1}"
+  scheduled_action_name  = "${aws_autoscaling_group.autoscaling_group.name}-startup"
+  max_size               = "${var.asg_size_max}"
+  min_size               = "${var.asg_size_min}"
+  desired_capacity       = "${var.asg_size_min}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
 }
