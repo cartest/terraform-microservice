@@ -58,10 +58,4 @@ resource "aws_autoscaling_group" "autoscaling_group" {
     value               = "${var.tags["Tier"]}"
     propagate_at_launch = true
   }
-
-  tag = {
-    key                 = "Role"
-    value               = "${var.name}"
-    propagate_at_launch = true
-  }
 }
