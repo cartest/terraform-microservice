@@ -8,7 +8,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   user_data            = "${var.user_data_script}"
 
   lifecycle {
-       create_before_destroy = true
+    create_before_destroy = true
   }
 }
 
@@ -21,6 +21,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   vpc_zone_identifier  = ["${module.subnets.subnet_ids}"]
   load_balancers       = ["${var.load_balancers}"]
 
+  enabled_metrics = ["${split(",", var.asg_enabled_metrics)}"]
 
   tag = {
     key                 = "Name"

@@ -4,7 +4,7 @@ variable "user_data_script" {
   default     = ""
 }
 
-variable "additional_security_group_ids"  {
+variable "additional_security_group_ids" {
   type        = "list"
   default     = []
   description = "Additional security groups to assign to ASG instances on top of the unique one created by this module"
@@ -138,4 +138,9 @@ variable "tags" {
 variable "vpc_id" {
   type        = "string"
   description = "Parent VPC ID"
+}
+
+variable "asg_enabled_metrics" {
+  description = "A comma seperated list of metrics to apply to the ASG"
+  default     = "GroupTerminatingInstances,GroupMaxSize,GroupDesiredCapacity,GroupPendingInstances,GroupInServiceInstances,GroupMinSize,GroupTotalInstances"
 }
