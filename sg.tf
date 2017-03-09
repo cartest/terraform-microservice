@@ -31,11 +31,12 @@ resource "aws_security_group_rule" "self_egress" {
 }
 
 resource "aws_security_group_rule" "s3_endpoint_access" {
-  count           = "${var.s3_endpoint_prefix_list_id == "" ? 0 : 1}"
-  type            = "egress"
-  protocol        = "-1"
-  from_port       = 443
-  to_port         = 443
-  protocol        = "tcp"
-  prefix_list_ids = ["${var.s3_endpoint_prefix_list_id}"]
+  count             = "${var.s3_endpoint_prefix_list_id == "" ? 0 : 1}"
+  type              = "egress"
+  protocol          = "-1"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = "${aws_security_group.security_group.id}"
+  prefix_list_ids   = ["${var.s3_endpoint_prefix_list_id}"]
 }
