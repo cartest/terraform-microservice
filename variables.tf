@@ -144,3 +144,9 @@ variable "asg_enabled_metrics" {
   description = "A comma seperated list of metrics to apply to the ASG"
   default     = "GroupTerminatingInstances,GroupMaxSize,GroupDesiredCapacity,GroupPendingInstances,GroupInServiceInstances,GroupMinSize,GroupTotalInstances"
 }
+
+variable "s3_endpoint_prefix_list_id" {
+  type        = "string"
+  default     = ""
+  description = "endpoint prefix list id for access to S3"
+}
