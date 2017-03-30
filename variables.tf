@@ -58,12 +58,6 @@ variable "aws_region" {
   default     = "eu-west-1"
 }
 
-variable "iam_policy_arns" {
-  type        = "list"
-  default     = []
-  description = "A list of IAM policy ARNs to associate with the EC2 role used to create EC2 instance profiles"
-}
-
 variable "lc_ami_id" {
   type        = "string"
   description = "The AMI ID to use in the ASG Launch Configuration"

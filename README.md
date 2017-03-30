@@ -15,7 +15,6 @@ module "microservice_api" {
   asg_termination_policies        = ["OldestLaunchConfiguration","ClosestToNextInstanceHour"]
   availability_zones              = ["${var.aws_region}a","${var.aws_region}b","${var.aws_region}c"]
   aws_region                      = "${var.aws_region}"
-  iam_policy_arns                 = ["${aws_iam_policy.api.arn}","${aws_iam_policy.ec2_default.arn}"]
   lc_ami_id                       = "ami-00000000000000000"
   lc_instance_type                = "t2.micro"
   load_balancers                  = ["${aws_elb.api.id}"]
