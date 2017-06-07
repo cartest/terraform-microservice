@@ -138,3 +138,13 @@ variable "asg_enabled_metrics" {
   description = "A comma seperated list of metrics to apply to the ASG"
   default     = "GroupTerminatingInstances,GroupMaxSize,GroupDesiredCapacity,GroupPendingInstances,GroupInServiceInstances,GroupMinSize,GroupTotalInstances"
 }
+
+# This is NOT set in the ASG properties in terraform, it is set at create-time using a local-exec provisioner.
+# This ensures that desired size can be changed by schedules and other automation without terraform
+# wishing to change the desired value undesirably on subsequent runs.
+variable "asg_size_desired_on_create" {
+  type        = "string"
+  description = "The desired size of the ASG *ON CREATION ONLY*"
+  default     = 0
+}
+# NOTE: Default set to zero so that this code can be used in existing circumstances without a TF error.
