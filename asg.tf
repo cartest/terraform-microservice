@@ -59,4 +59,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
     value               = "${var.tags["Tier"]}"
     propagate_at_launch = true
   }
-}
+
+  provisioner "local-exec" {
+    command = "aws autoscaling update-auto-scaling-group --auto-scaling-group-name ${aws_autoscaling_group.autoscaling_group.name} --desired-capacity ${var.asg_size_desired_on_create}"
+  }
