@@ -68,6 +68,11 @@ variable "lc_instance_type" {
   description = "The microservice EC2 instance type"
 }
 
+variable "instance_spot_price" {
+  type        = "string"
+  description = "The microservice EC2 spot instance price"
+}
+
 variable "lc_key_name" {
   type        = "string"
   default     = ""
